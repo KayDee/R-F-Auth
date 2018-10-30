@@ -1,29 +1,28 @@
 import React, { Component } from 'react'
-// import './login.css'
+// import './signup.css'
 
-class Login extends Component {
+class Signup extends Component {
   render() {
     return (
       <div>
-        <div className="login-container">
-          <h2>Login in page</h2>
-          <form class="login-form">
+        <div className="signup-container">
+          <h2>Sign up page</h2>
+          <form class="signup-form">
+            <div class="name-container">
+              <input type="text" placeholder="Enter name"/>
+            </div>
             <div class="email-container">
               <input type="email" placeholder="Enter email"/>
             </div>
             <div class="password-container">
               <input type="password" placeholder="Enter password"/>
             </div>
-            <input type="submit" value="Log In" />
-            <a href="" class="forgot-but">Forgot Password</a>
+            <input type="submit" value="Signup" />
           </form>
         </div>
-        <p>Dont have an account ? 
-          <a href="">Sign Up</a>
-        </p>
       </div>
     )
   }
 }
 
-export default Login
+export default Signup
