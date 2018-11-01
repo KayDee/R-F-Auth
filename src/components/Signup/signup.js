@@ -13,6 +13,10 @@ const INIT_STATE = {
   error: null
 }
 
+const byPropKey = (propertyName, value) => () => ({
+  [propertyName]: value,
+})
+
 const Signup = () => {
   <div class="signup-container">
     <h2>Sign up page</h2>
@@ -30,8 +34,23 @@ class SignupForm extends Component {
 
   }
   render(){
+    const {
+      username,
+      email,
+      passone,
+      passtwo,
+      error
+    } = this.state
     return(
-      <form onSubmit={this.onSubmit}></form>
+      <form onSubmit={this.onSubmit}>
+        <input type="text" value={username} onChange={event => this.setState(byPropKey('username', event.target.value))} placeholder="Full name" />
+        <input type="email" value={email} onChange={event => this.setState(byPropKey('email', event.target.value))} placeholder="Email Address" />
+        <input type="password" value={passone} onChange={event => this.setState(byPropKey('passone', event.target.value))} placeholder="Enter password" />
+        <input type="password" value={passtwo} onChange={event => this.setState(byPropKey('passtwo', event.target.value))} placeholder="Re Type password" />
+        <button type="submit">Sign Up</button>
+
+        {error && <p>{error.message}</p>}
+      </form>
     )
   }
   // render() {
