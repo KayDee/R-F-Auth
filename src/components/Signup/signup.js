@@ -1,9 +1,9 @@
 import React, { Component } from 'react'
 import { Link, withRouter } from 'react-router-dom'
 
-import { auth } from '../firebase'
+import { auth } from '../../firebase'
 
-import * as routes from '../constants/routes'
+import * as routes from '../../constants/routes'
 
 // import './signup.css'
 
@@ -19,12 +19,12 @@ const byPropKey = (propertyName, value) => () => ({
   [propertyName]: value,
 })
 
-const Signup = () => {
+const Signup = ({ history }) => 
   <div class="signup-container">
     <h2>Sign up page</h2>
-    <SignupForm />
+    <SignupForm history={history}/>
   </div>
-}
+
 
 class SignupForm extends Component {
   constructor(props){
@@ -38,10 +38,16 @@ class SignupForm extends Component {
       passone,
       email
     } = this.state
+    
+    const {
+      history
+    } = this.props
 
     auth.createUser(email, passone).then(
-      authUser => this.setState({...INIT_STATE})
-      ).catch(
+      authUser => {
+        this.setState({...INIT_STATE})
+        history.push(routes.HOME)
+      }).catch(
         error => this.setState(byPropKey('error', error))
       )
     event.preventDefault()
@@ -92,14 +98,14 @@ class SignupForm extends Component {
   // }
 }
 
-const SignupLink = () => {
+const SignupLink = () => 
   <p>
-    Don\'t have an account ?{' '}
-    <Link to={routes.SIGN_UP}></Link>
+    Don't have an account ?{' '}
+    <Link to={routes.SIGN_UP}>Sign up</Link>
   </p>
-}
 
-export default Signup
+
+export default withRouter(Signup)
 
 export{
   SignupForm,
