@@ -1,5 +1,7 @@
 import React, { Component } from 'react'
-import { Link } from 'react-router-dom'
+import { Link, withRouter } from 'react-router-dom'
+
+import { auth } from '../firebase'
 
 import * as routes from '../constants/routes'
 
@@ -31,7 +33,18 @@ class SignupForm extends Component {
   }
 
   onSubmit = (event) => {
+    const {
+      username,
+      passone,
+      email
+    } = this.state
 
+    auth.createUser(email, passone).then(
+      authUser => this.setState({...INIT_STATE})
+      ).catch(
+        error => this.setState(byPropKey('error', error))
+      )
+    event.preventDefault()
   }
   render(){
     const {
@@ -41,13 +54,16 @@ class SignupForm extends Component {
       passtwo,
       error
     } = this.state
+
+    const isInvalid = passone !== passtwo || passone === '' || username === '' || email === ''
+
     return(
       <form onSubmit={this.onSubmit}>
         <input type="text" value={username} onChange={event => this.setState(byPropKey('username', event.target.value))} placeholder="Full name" />
         <input type="email" value={email} onChange={event => this.setState(byPropKey('email', event.target.value))} placeholder="Email Address" />
         <input type="password" value={passone} onChange={event => this.setState(byPropKey('passone', event.target.value))} placeholder="Enter password" />
         <input type="password" value={passtwo} onChange={event => this.setState(byPropKey('passtwo', event.target.value))} placeholder="Re Type password" />
-        <button type="submit">Sign Up</button>
+        <button type="submit" disabled={isInvalid}>Sign Up</button>
 
         {error && <p>{error.message}</p>}
       </form>
