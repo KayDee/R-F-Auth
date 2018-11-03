@@ -67,7 +67,7 @@ class LoginForm extends Component {
         <div className="email-container">
           <input type="email" placeholder="Enter email" value={email} onChange={event => this.setState(byPropKey('email', event.target.value))}/>
         </div>
-        <div class="password-container">
+        <div className="password-container">
           <input type="password" placeholder="Enter password" value={password} onChange={event => this.setState(byPropKey('password', event.target.value))}/>
         </div>
         <input type="submit" value="Log In" disabled={invalid}/>
