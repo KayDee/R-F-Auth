@@ -19,7 +19,7 @@ const byPropKey = (propertyName, value) => () => ({
   [propertyName]: value,
 })
 
-const Signup = () => 
+const Signup = ({ history }) => 
   <div className="signup-container">
     <h2>Sign up page</h2>
     <SignupForm history={history}/>
@@ -30,6 +30,7 @@ class SignupForm extends Component {
   constructor(props){
     super(props)
     this.state = {...INIT_STATE}
+    console.log(this.props.history)
   }
 
   onSubmit = (event) => {
@@ -40,9 +41,9 @@ class SignupForm extends Component {
       email
     } = this.state
     console.log(this.state)
-    // const {
-    //   history
-    // } = this.props
+    const {
+      history
+    } = this.props
     console.log(email + "  " + passone)
     // auth.createUser(email, passone).then(
     //   authUser => {
@@ -58,7 +59,7 @@ class SignupForm extends Component {
         })
     console.log('Sign in Successful')
     this.setState({...INIT_STATE})
-    this.props.history.push(routes.HOME)
+    history.push(routes.HOME)
   }
   render(){
     const {
